@@ -1,14 +1,10 @@
 #include "game.hpp"
 
 Game::Game(){
-    this->create(WIN_MODE, "Forgery");
+    this->create(WIN_MODE, "The Smallest War");
     m_tickCount = 0;
     //initializations
     Random::init();
-    //ParticleLine gen(sf::Vector2f(50,50), sf::Vector2f(0, 139), 20);
-    ParticlePoint gen(sf::Vector2f(100,100), 10);
-    VertexOffset up(sf::Vector2f(0,0.1));
-    m_particles.addParticles(&gen, &up, WATER);
 }
 
 Game::~Game(){
@@ -43,11 +39,11 @@ void Game::manageEvents(){
 }
 
 void Game::update(){
-    m_particles.update();
+
 }
 
 void Game::rendering(){
     this->clear();
-    m_particles.render(this);
+
     this->display();
 }

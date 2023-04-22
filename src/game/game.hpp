@@ -35,7 +35,6 @@ protected:
     ///attributes
     long m_tickCount;
     sf::Clock m_clock;
-    Particles m_particles;
 
 };
 
