@@ -4,7 +4,7 @@
 #include <SFML/System.hpp>
 
 ///Window managment
-const sf::VideoMode WIN_MODE(200,200);
+const sf::VideoMode WIN_MODE(600,600);
 const sf::Time TIME_PER_FRAME = sf::milliseconds(33);
 
 ///Particles managment

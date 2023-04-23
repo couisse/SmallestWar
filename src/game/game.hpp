@@ -1,8 +1,10 @@
 #ifndef GAME_HPP_INCLUDED
 #define GAME_HPP_INCLUDED
 
-#include "../render/particles/particlesManipulator.hpp"
+#include "../render/quadsarray.hpp"
+#include "../utils/random.hpp"
 #include "../utils/macros.hpp"
+#include "../utils/consts.hpp"
 
 /** \brief Main class of the app
  */
@@ -35,6 +37,7 @@ protected:
     ///attributes
     long m_tickCount;
     sf::Clock m_clock;
+    QuadsArray m_quads;
 
 };
 

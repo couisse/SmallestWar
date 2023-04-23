@@ -5,6 +5,10 @@ Game::Game(){
     m_tickCount = 0;
     //initializations
     Random::init();
+
+    m_quads.setTexture("assets/pict/units/atoms_tileset.png");
+    m_quads.newRect(sf::FloatRect(50, 50, 100, 100), sf::FloatRect(0, 0, 50, 50));
+    m_quads.newRect(sf::FloatRect(200, 200, 100, 100), sf::FloatRect(50, 0, 50, 50));
 }
 
 Game::~Game(){
@@ -34,6 +38,9 @@ void Game::manageEvents(){
     while (this->pollEvent(event)){
         if (event.type==sf::Event::Closed){
             this->close();
+        }else if (event.type == sf::Event::KeyPressed){
+            log(m_quads.access(sf::Vector2u(0,1))->position.x);
+            m_quads.suppress(sf::Vector2u(0,1));
         }
     }
 }
@@ -44,6 +51,8 @@ void Game::update(){
 
 void Game::rendering(){
     this->clear();
+
+    m_quads.draw(this);
 
     this->display();
 }
