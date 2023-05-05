@@ -1,20 +1,22 @@
-#ifndef GAME_HPP_INCLUDED
-#define GAME_HPP_INCLUDED
+#ifndef CLIENT_HPP_INCLUDED
+#define CLIENT_HPP_INCLUDED
 
-#include "../render/quadsarray.hpp"
+#include "quadsarray.hpp"
 #include "../utils/random.hpp"
 #include "../utils/macros.hpp"
 #include "../utils/consts.hpp"
 
-/** \brief Main class of the app
+/** \brief This class is intended to manage the window and the rendering.
+    It has no effect on the gameplay, except the task of collection user events
+    and sending it to the server via ClientServerInteraction
  */
 
-class Game: public sf::RenderWindow {
+class Client: public sf::RenderWindow {
 
 public:
-    Game();
-    ~Game();
-    /** \brief Main loop of the app
+    Client();
+    ~Client();
+    /** \brief Main loop of the client
     */
     void play();
 
@@ -29,10 +31,6 @@ protected:
     */
     void manageEvents();
 
-    /** \brief calculates the next frame of the app
-     */
-    void update();
-
 
     ///attributes
     long m_tickCount;
@@ -41,4 +39,4 @@ protected:
 
 };
 
-#endif // GAME_HPP_INCLUDED
+#endif // CLIENT_HPP_INCLUDED

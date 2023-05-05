@@ -6,11 +6,11 @@
 #ifdef DBG
 
 #include <iostream>
-#define log(x) {std::cout << x << std::endl;}
+#define console_log(x) {std::cout << x << std::endl;}
 
 #else
 
-#define log(x) {}
+#define console_log(x) {}
 
 #endif
 
