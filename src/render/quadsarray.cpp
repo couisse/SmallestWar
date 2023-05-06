@@ -11,7 +11,7 @@ QuadsArray::~QuadsArray(){
 }
 
 
-void QuadsArray::newRect(sf::FloatRect position, sf::FloatRect texture, sf::Color color){
+u_int QuadsArray::newRect(sf::FloatRect position, sf::FloatRect texture, sf::Color color){
     m_vertices.reserve(m_vertices.size()+4);
 
     m_vertices.emplace_back(    sf::Vector2f(position.left, position.top),
@@ -33,6 +33,7 @@ void QuadsArray::newRect(sf::FloatRect position, sf::FloatRect texture, sf::Colo
                                 color,
                                 sf::Vector2f(texture.left, texture.top + texture.height)
                             );
+    return (m_vertices.size() >> 2) - 1;
 }
 
 

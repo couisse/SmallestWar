@@ -5,8 +5,18 @@ Client::Client(){
     m_tickCount = 0;
 
     m_quads.setTexture("assets/pict/units/atoms_tileset.png");
-    m_quads.newRect(sf::FloatRect(50, 50, 100, 100), sf::FloatRect(0, 0, 50, 50));
-    m_quads.newRect(sf::FloatRect(200, 200, 100, 100), sf::FloatRect(50, 0, 50, 50));
+
+    MoleculeAtomicStructure waterStructure;
+    waterStructure.composants.emplace_back(3);
+    waterStructure.composants.emplace_back(0);
+    waterStructure.composants.emplace_back(0);
+    waterStructure.composants[0].others[1] = &waterStructure.composants[1];
+    waterStructure.composants[0].others[2] = &waterStructure.composants[2];
+    waterStructure.composants[1].others[3] = &waterStructure.composants[0];
+    waterStructure.composants[2].others[0] = &waterStructure.composants[0];
+
+    MoleculeRenderingModel model(waterStructure);
+    MoleculeRendereringEntity entity(model, m_quads, sf::Vector2f(100, 100));
 }
 
 Client::~Client(){

@@ -5,8 +5,8 @@
 
 int main()
 {
-    //initialisation and loadings
-    if (!MoleculeInfos::load())
+    //initialization and loadings
+    if (! (MoleculeInfos::load() && MoleculeRenderingModel::init()) )
         return -1;
     Random::init();
 
@@ -16,6 +16,7 @@ int main()
 
     //unloading
     MoleculeInfos::unload();
+    MoleculeRenderingModel::unload();
 
     return 0;
 }

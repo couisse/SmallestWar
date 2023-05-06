@@ -1,7 +1,7 @@
 #ifndef CLIENT_HPP_INCLUDED
 #define CLIENT_HPP_INCLUDED
 
-#include "quadsarray.hpp"
+#include "molecule_rendering.hpp"
 #include "../utils/random.hpp"
 #include "../utils/macros.hpp"
 #include "../utils/consts.hpp"

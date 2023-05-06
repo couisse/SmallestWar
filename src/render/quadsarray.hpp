@@ -10,6 +10,8 @@
  *
  */
 
+ typedef unsigned int u_int;
+
 
 class QuadsArray {
 
@@ -20,20 +22,30 @@ public:
     virtual ~QuadsArray();
 
     ///Mutators
-    void newRect(sf::FloatRect position, sf::FloatRect texture = sf::FloatRect(), sf::Color color = sf::Color::White); //allocates a new  rectangle-shaped quad
+    /** \brief allocates a new  rectangle-shaped quad and returns its position in array
+     */
+    u_int newRect(sf::FloatRect position, sf::FloatRect texture = sf::FloatRect(), sf::Color color = sf::Color::White);
 
-    void suppress(sf::Vector2u range); //suppress the range of QUAD elements (by index), with the last one not included
+    /** \brief suppress the range of QUAD elements (by index), with the last one not included
+     */
+    void suppress(sf::Vector2u range);
 
-    sf::Vertex* access(sf::Vector2u range); //returns a pointer to the first  QUAD element of the specified range of index.
-    //Does check if the range (last not included) is valid, but getting out of the range is UB.
-    //returns nullptr in case of non-valid range
+    /** \brief returns a pointer to the first  QUAD element of the specified range of index.
+     *  Does check if the range (last not included) is valid, but getting out of the range is UB.
+     *  returns nullptr in case of non-valid range
+     */
+    sf::Vertex* access(sf::Vector2u range);
 
-    void setTexture(std::string textureFileName); //sets the texture for the array.
-    //If the argument is empty, then no texture will be applied.
-    //If the texture filename is invalid, no texture will be applied
+    /** \brief sets the texture for the array.
+     *  If the argument is empty, then no texture will be applied.
+     *
+     */
+    void setTexture(std::string textureFileName);
 
     ///Drawing
-    virtual void draw(sf::RenderTarget* target) const; //standard draw function on a render target
+    /** \brief standard draw function on a render target
+     */
+    virtual void draw(sf::RenderTarget* target) const;
 
 private:
 
