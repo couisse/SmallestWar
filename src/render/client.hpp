@@ -37,6 +37,8 @@ protected:
     sf::Clock m_clock;
     QuadsArray m_quads;
 
+    MoleculeRendereringEntity* m_molecule;
+
 };
 
 #endif // CLIENT_HPP_INCLUDED

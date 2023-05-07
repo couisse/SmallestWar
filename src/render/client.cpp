@@ -16,10 +16,11 @@ Client::Client(){
     waterStructure.composants[2].others[0] = &waterStructure.composants[0];
 
     MoleculeRenderingModel model(waterStructure);
-    MoleculeRendereringEntity entity(model, m_quads, sf::Vector2f(100, 100));
+    m_molecule = new MoleculeRendereringEntity(model, m_quads, sf::Vector2f(100, 100));
 }
 
 Client::~Client(){
+    delete m_molecule;
 }
 
 void Client::play(){
@@ -45,15 +46,14 @@ void Client::manageEvents(){
     while (this->pollEvent(event)){
         if (event.type==sf::Event::Closed){
             this->close();
-        }else if (event.type == sf::Event::KeyPressed){
-            console_log(m_quads.access(sf::Vector2u(0,1))->position.x);
-            m_quads.suppress(sf::Vector2u(0,1));
         }
     }
 }
 
 void Client::rendering(){
     this->clear();
+
+    m_molecule->update(TIME_PER_FRAME.asSeconds());
 
     m_quads.draw(this);
 

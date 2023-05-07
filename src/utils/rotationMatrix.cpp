@@ -4,7 +4,7 @@
 
 RotationMatrix::RotationMatrix(float angle, sf::Vector2f center): m_center(center) {
     m_matrix[0][0] = cos(angle);
-    m_matrix[0][1] = -sin(angle);
+    m_matrix[0][1] = sin(angle);
     m_matrix[1][0] = -m_matrix[0][1];
     m_matrix[1][1] = m_matrix[0][0];
 }

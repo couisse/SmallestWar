@@ -22,13 +22,14 @@ public:
 
     /** \brief Causes the update of animation and position;
      */
-    void update(double dt);
+    void update(float dt);
 
 protected:
     sf::Vector2u m_range;
-    QuadsArray* m_verticesHolder;
-    double m_angle;
-    double m_angularSpeed;
+    QuadsArray& m_verticesHolder;
+    sf::Vector2f m_position;
+    float m_angle;
+    float m_angularSpeed;
 };
 
 

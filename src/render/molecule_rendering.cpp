@@ -1,24 +1,33 @@
 #include "molecule_rendering.hpp"
 
-#include "../utils/rotationMatrix.hpp"
+#include "quads_operations.hpp"
 #include "../utils/macros.hpp"
 
-MoleculeRendereringEntity::MoleculeRendereringEntity(MoleculeRenderingModel& model, QuadsArray& verticesHolder, sf::Vector2f position){
+MoleculeRendereringEntity::MoleculeRendereringEntity(MoleculeRenderingModel& model, QuadsArray& verticesHolder, sf::Vector2f position)
+    : m_verticesHolder(verticesHolder) {
     m_range = model.generateVertices(verticesHolder, position);
-    RotationMatrix matrix(0.392698, sf::Vector2f(100, 100));
-    sf::Vertex* target = verticesHolder.access(m_range);
-    for (u_int i = m_range.x << 2; i < m_range.y << 2; i++){
-        console_log(target[i].position.x);
-        target[i].position = matrix * target[i].position;
-        console_log(target[i].position.x);
-        console_log("----------------");
-    }
+    m_position = position;
+    m_angle = 0;
+    m_angularSpeed = 1.f / model.getAtomNumber();
 }
 
 MoleculeRendereringEntity::~MoleculeRendereringEntity(){
 }
 
-void MoleculeRendereringEntity::update(double dt){
+void MoleculeRendereringEntity::update(float dt){
+    float angleIncrease = m_angularSpeed * dt;
+    sf::Vertex* origin = m_verticesHolder.access(m_range);
+    RotationMatrix rotator(angleIncrease, m_position);
+    console_log("Angle is increased by:")
+    console_log(angleIncrease);
+    console_log("Current angle is:");
+    console_log(m_angle);
+    for (u_int i = 0; i < (m_range.y - m_range.x) << 2; i++){
+        origin[i].position = rotator * origin[i].position;
+    }
+    //QuadTransform(sf::Vector2f(0,0), m_position, angleIncrease).applyOnMultiple(m_verticesHolder.access(m_range), m_range.y - m_range.x, true);
+    console_log("************");
+    m_angle += angleIncrease;
 }
 
 /** Model **/
@@ -87,8 +96,8 @@ MoleculeRenderingModel::MoleculeRenderingModel(MoleculeAtomicStructure& structur
 
     //generating the graphical values
     for (u_int i = 0; i < m_atomsNumber; i++){
-        m_atoms[i].relativePos.x = (positions[i].x + barycenter.x) * 50.f;
-        m_atoms[i].relativePos.y = (positions[i].y + barycenter.y) * 50.f;
+        m_atoms[i].relativePos.x = (positions[i].x - barycenter.x) * 50.f;
+        m_atoms[i].relativePos.y = (positions[i].y - barycenter.y) * 50.f;
         m_atoms[i].quadNumber = structure.composants[i].type;
     }
 }
@@ -101,8 +110,8 @@ sf::Vector2u MoleculeRenderingModel::generateVertices(QuadsArray& target, sf::Ve
     sf::Vector2u range;
     sf::FloatRect base(0,0,50,50);
     for (u_int i = 0; i < m_atomsNumber; i++){
-        base.left = m_atoms[i].relativePos.x + position .x;
-        base.top = m_atoms[i].relativePos.y + position.y;
+        base.left = m_atoms[i].relativePos.x + position .x - 25;
+        base.top = m_atoms[i].relativePos.y + position.y - 25;
         range.y = target.newRect(base, MoleculeRenderingModel::texture_quads[m_atoms[i].quadNumber]);
     }
     range.y += 1;
